@@ -1,0 +1,22 @@
+{
+  "name": "cosmos-inscriptions-mint",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "addresses": "node scripts/addresses.js",
+    "generate": "node scripts/generate.js",
+    "mint": "node scripts/mint.js",
+    "dispatch": "node scripts/dispatch.js",
+    "withdraw": "node scripts/withdraw.js",
+    "balances": "node scripts/balances.js",
+    "minted": "node scripts/minted.js",
+    "update": "git reset --hard HEAD && git pull && npm install"
+  },
+  "dependencies": {
+    "@cosmjs/stargate": "0.28.2",
+    "@injectivelabs/sdk-ts": "^1.14.4",
+    "axios": "^1.6.2",
+    "winston": "^3.11.0"
+  },
+  "type": "module"
+}
