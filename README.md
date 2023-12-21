@@ -69,13 +69,13 @@ export const INJ_REST = "https://lcd.injective.network";
 export const INJ_GRPC = "https://grpc.injective.network";
 
 // GAS 费修改，根据当前网络情况视频情况调整
-export const GAS = 150000;
+export const GAS = 1000000;
 
 // 铸造原生代币的交易费用
-export const FEE_NATIVE = 0.0003;
+export const FEE_NATIVE = 0.003;
 
 // 自己给自己的转帐金额（原来是 0.03，现在免费了，只要转任意金额就行）
-export const MINT_AMOUNT_NATIVE = 0.0000000001;
+export const MINT_AMOUNT_NATIVE = 0.00000001;
 
 // mint 参数配置
 // injs 铭文的 base64 编号，注意一定要保持跟官方一致，具体到 https://docs.injs.ink/mint-injs 查看。
