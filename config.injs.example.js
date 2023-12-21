@@ -15,7 +15,8 @@ export const MINT_AMOUNT_NATIVE = 0.0000000001;
 // 先前是1张2000个，现在改成了 1000个
 export const MEMO =
     "ZGF0YToseyJwIjoiaW5qcmMtMjAiLCJvcCI6Im1pbnQiLCJ0aWNrIjoiSU5KUyIsImFtdCI6IjEwMDAifQ==";
-
+// MINT 次数，如果为 0 则会一直 Mint 但最大被限制在 10000 次
+export const MINT_COUNT = 0
 
 
 
