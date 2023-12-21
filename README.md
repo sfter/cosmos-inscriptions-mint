@@ -69,8 +69,11 @@ export const MINT_AMOUNT_NATIVE = 0.0000000001;
 export const MEMO =
     "ZGF0YToseyJwIjoiaW5qcmMtMjAiLCJvcCI6Im1pbnQiLCJ0aWNrIjoiSU5KUyIsImFtdCI6IjEwMDAifQ==";
 
-// MINT 次数，如果为 0 则会一直 Mint 但最大被限制在 10000 次
+// MINT 次数，如果为 0 则会一直 Mint（但最大Mint最大次数由下面的 MAX_MINT_MINT 设置
 export const MINT_COUNT = 0
+
+// 最大 Mint 次数（默认为 10000）
+export const MAX_MINT_COUNT = 10000
 ```
 
 ### Step 5: 安装依赖包

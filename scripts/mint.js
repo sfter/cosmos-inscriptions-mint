@@ -62,7 +62,11 @@ const processAccount = async (
 
   let mintCount = MINT_COUNT
   if (mintCount <= 0) {
-    mintCount = 10000
+    if (MAX_MINT_COUNT <= 0 ) {
+      mintCount = 10000
+    } else {
+      mintCount = MAX_MINT_COUNT
+    }
   }
   for (let i = 0; i < mintCount; i++) {
     try {
