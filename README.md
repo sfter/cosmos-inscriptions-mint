@@ -40,6 +40,7 @@ https://gitforwindows.org
 ```
 
 ### Step 3: 重命名当前目录下的 config.injs.example.js 为 config.js 文件
+> 注意：大家更新代码后最好重新再更新一下配置文件，以免某些参数缺失。
 ```bash
 cp config.injs.example.js config.js
 ```
