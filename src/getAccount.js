@@ -18,13 +18,13 @@ export const getAccount = async (/** @type {string} */ mnemonic) => {
     const account = await signer.getAccounts();
     const address = account[0].address;
     const signingClient = await SigningStargateClient.connectWithSigner(
-      RPC,
-      signer
+        RPC,
+        signer
     );
 
     const { nativeAmount, usdAmount } = await getAccountBalance(
-      signingClient,
-      address
+        signingClient,
+        address
     );
 
     return { mnemonic, address, signingClient, nativeAmount, usdAmount };
@@ -36,20 +36,20 @@ export const getAccount = async (/** @type {string} */ mnemonic) => {
     const address = PrivateKey.fromHex(privateKey).toBech32();
 
     const signer = await InjectiveDirectEthSecp256k1Wallet.fromKey(
-      Buffer.from(privateKey.replace("0x", ""), "hex")
+        Buffer.from(privateKey.replace("0x", ""), "hex")
     );
 
     const signingClient =
-      await InjectiveStargate.InjectiveSigningStargateClient.connectWithSigner(
-        RPC,
-        // @ts-ignore
-        signer
-      );
+        await InjectiveStargate.InjectiveSigningStargateClient.connectWithSigner(
+            RPC,
+            // @ts-ignore
+            signer
+        );
 
     const { nativeAmount, usdAmount } = await getAccountBalance(
-      // @ts-ignore
-      signingClient,
-      address
+        // @ts-ignore
+        signingClient,
+        address
     );
 
     return {

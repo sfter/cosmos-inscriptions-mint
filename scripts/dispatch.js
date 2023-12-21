@@ -37,7 +37,7 @@ const main = async () => {
   const signingClient = await connectWithSigner(RPC, signer);
 
   logger.info(
-    `main account balance - ${mainAccount.address} - ${mainAccount.nativeAmount} ${NATIVE_TICK} ($${mainAccount.usdAmount})`
+      `main account balance - ${mainAccount.address} - ${mainAccount.nativeAmount} ${NATIVE_TICK} ($${mainAccount.usdAmount})`
   );
 
   for (const accountToDispatch of accountsToDispatch) {
@@ -48,22 +48,20 @@ const main = async () => {
         fromAddress: mainAccount.address,
         toAddress: accountToDispatch.address,
         amount: Math.round(
-          SEND_NATIVE_TOKENS_PER_ACCOUNT * UNATIVE_PER_NATIVE
+            SEND_NATIVE_TOKENS_PER_ACCOUNT * UNATIVE_PER_NATIVE
         ).toString(),
       });
 
       const txUrl = `${EXPLORER}/${transactionHash}`;
 
       logger.info(
-        `${SEND_NATIVE_TOKENS_PER_ACCOUNT} ${NATIVE_TICK} sent to ${accountToDispatch.address} - ${txUrl}`
+          `${SEND_NATIVE_TOKENS_PER_ACCOUNT} ${NATIVE_TICK} sent to ${accountToDispatch.address} - ${txUrl}`
       );
-
-      await sleep(SLEEP_BETWEEN_DISPATCH_SEC);
 
       const currentMainAccount = await getAccount(mainAccount.mnemonic);
 
       logger.info(
-        `main account balance - ${currentMainAccount.nativeAmount} ${NATIVE_TICK} ($${currentMainAccount.usdAmount})`
+          `main account balance - ${currentMainAccount.nativeAmount} ${NATIVE_TICK} ($${currentMainAccount.usdAmount})`
       );
 
       if (currentMainAccount.nativeAmount < SEND_NATIVE_TOKENS_PER_ACCOUNT) {
@@ -72,11 +70,13 @@ const main = async () => {
       }
     } catch (error) {
       logger.error(
-        `${accountToDispatch.address} error - ${
-          error?.message || "undefined error"
-        }`
+          `${accountToDispatch.address} error - ${
+              error?.message || "undefined error"
+          }`
       );
     }
+
+    await sleep(SLEEP_BETWEEN_DISPATCH_SEC);
   }
 
   logger.info("done");

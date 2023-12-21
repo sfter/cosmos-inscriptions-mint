@@ -1,49 +1,41 @@
 import {
   ADDRESS_PREFIX,
-  EXPLORER,
   FEE_NATIVE,
   GAS,
-  MEMO,
+  INJ_GRPC,
   NATIVE_DENOM,
   UNATIVE_PER_NATIVE,
 } from "../config.js";
 
-import { getNetworkInfo, Network } from "@injectivelabs/networks";
-
 import {
   MsgSend,
-  TxClient,
-  ChainRestAuthApi,
   createTransaction,
   TxGrpcClient,
+  ChainGrpcAuthApi,
 } from "@injectivelabs/sdk-ts";
-import { logger } from "./logger.js";
+import { ChainId } from "@injectivelabs/ts-types";
 
 export const sendTokens = async (params) => {
   const { signingClient, privateKey, fromAddress, toAddress, memo, amount } =
-    params;
+      params;
 
   const fee = Math.round(FEE_NATIVE * UNATIVE_PER_NATIVE).toString();
 
   // @ts-ignore
   if (ADDRESS_PREFIX === "celestia") {
     const { transactionHash } = await signingClient.sendTokens(
-      fromAddress,
-      toAddress,
-      [{ denom: NATIVE_DENOM, amount }],
-      { amount: [{ denom: NATIVE_DENOM, amount: fee }], gas: GAS.toString() },
-      MEMO
+        fromAddress,
+        toAddress,
+        [{ denom: NATIVE_DENOM, amount }],
+        { amount: [{ denom: NATIVE_DENOM, amount: fee }], gas: GAS.toString() },
+        memo || ""
     );
 
     return { transactionHash }; // @ts-ignore
   } else if (ADDRESS_PREFIX === "inj") {
-    const network = getNetworkInfo(Network.Mainnet);
-
-    const publicKey = privateKey.toPublicKey().toBase64();
-
-    const accountDetails = await new ChainRestAuthApi(
-      network.rest
-    ).fetchAccount(fromAddress);
+    const accountDetails = await new ChainGrpcAuthApi(INJ_GRPC).fetchAccount(
+        fromAddress
+    );
 
     const msg = MsgSend.fromJSON({
       amount: { amount, denom: NATIVE_DENOM },
@@ -53,44 +45,23 @@ export const sendTokens = async (params) => {
 
     const { signBytes, txRaw } = createTransaction({
       message: msg,
-      memo,
+      memo: memo || "",
       fee: {
-        amount: [
-          {
-            amount: fee,
-            denom: NATIVE_DENOM,
-          },
-        ],
+        amount: [{ amount: fee, denom: NATIVE_DENOM }],
         gas: GAS.toString(),
       },
-      pubKey: publicKey,
-      sequence: parseInt(accountDetails.account.base_account.sequence, 10),
-      accountNumber: parseInt(
-        accountDetails.account.base_account.account_number,
-        10
-      ),
-      chainId: network.chainId,
+      pubKey: privateKey.toPublicKey().toBase64(),
+      sequence: accountDetails.baseAccount.sequence,
+      accountNumber: accountDetails.baseAccount.accountNumber,
+      chainId: ChainId.Mainnet,
     });
 
     const signature = await privateKey.sign(Buffer.from(signBytes));
-
     txRaw.signatures = [signature];
 
-    const url = `${EXPLORER}/${TxClient.hash(txRaw)}`;
-    logger.info(`preliminary hash: ${url}`);
+    const txResponse = await new TxGrpcClient(INJ_GRPC).broadcast(txRaw);
 
-    const txService = new TxGrpcClient(network.grpc);
-
-    // const simulationResponse = await txService.simulate(txRaw);
-    // console.log(
-    //   `Transaction simulation response: ${JSON.stringify(
-    //     simulationResponse.gasInfo
-    //   )}`
-    // );
-
-    const txResponse = await txService.broadcast(txRaw);
-
-    return { transactionHash: TxClient.hash(txRaw) };
+    return { transactionHash: txResponse.txHash };
   }
 
   throw new Error(`address prefix is not defined ${ADDRESS_PREFIX}`);

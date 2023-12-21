@@ -34,7 +34,7 @@ export const sendTx = async (
 
   const txUrl = `${EXPLORER}/${transactionHash}`;
 
-  logger.info(`[${accountIdx}] ${address} - ${txUrl}`);
+  logger.info(`[${accountIdx}] ${address} success hash - ${txUrl}`);
 };
 
 const getAccountWrapped = async (
@@ -59,28 +59,28 @@ const processAccount = async (
 ) => {
   const account = await getAccountWrapped(accountIdx, mnemonic);
 
-  while (true) {
-    try {
-      // 获取区块高度
-      const blockNumber = await account.signingClient.getHeight()
-      logger.info(`current block height - ${blockNumber}`);
-      for (let i = 0; i < BLOCK_HEIGHTS.length; i++) {
-        let startHeight = BLOCK_HEIGHTS[i][0]
-        let endHeight = BLOCK_HEIGHTS[i][1]
-        if (blockNumber >= startHeight && blockNumber <= endHeight) {
-          startMint = true
-          break
-        }
-      }
-      await sleep(SLEEP_ON_GET_HEIGHT_SEC);
-    } catch (err) {
-      logger.error(`[${accountIdx}] get block height error - ${error.message}`);
-      await sleep(SLEEP_ON_GET_HEIGHT_ERROR_SEC);
-    }
-    if (startMint) {
-      break
-    }
-  }
+  // while (true) {
+  //   try {
+  //     // 获取区块高度
+  //     const blockNumber = await account.signingClient.getHeight()
+  //     logger.info(`current block height - ${blockNumber}`);
+  //     for (let i = 0; i < BLOCK_HEIGHTS.length; i++) {
+  //       let startHeight = BLOCK_HEIGHTS[i][0]
+  //       let endHeight = BLOCK_HEIGHTS[i][1]
+  //       if (blockNumber >= startHeight && blockNumber <= endHeight) {
+  //         startMint = true
+  //         break
+  //       }
+  //     }
+  //     await sleep(SLEEP_ON_GET_HEIGHT_SEC);
+  //   } catch (err) {
+  //     logger.error(`[${accountIdx}] get block height error - ${error.message}`);
+  //     await sleep(SLEEP_ON_GET_HEIGHT_ERROR_SEC);
+  //   }
+  //   if (startMint) {
+  //     break
+  //   }
+  // }
 
   logger.warn(
     `[${accountIdx}] ${account.address} started - ${account.nativeAmount} ${NATIVE_TICK} ($${account.usdAmount})`
@@ -123,7 +123,7 @@ const processAccount = async (
 const main = async () => {
   const fee = Math.round(FEE_NATIVE * UNATIVE_PER_NATIVE).toString();
   const gas = GAS.toString()
-  console.log(fee, gas)
+  logger.info(`fee - ${fee}, gas - ${gas}`)
   const accounts = getAccountsFromFile();
   for (let idx = 0; idx < accounts.length; idx += 1) {
     processAccount(idx, accounts[idx].mnemonic);
