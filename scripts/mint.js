@@ -1,10 +1,11 @@
 import {
+  BLOCK_HEIGHTS,
   EXPLORER, MAX_MINT_COUNT,
   MEMO,
   MINT_AMOUNT_NATIVE, MINT_COUNT,
   NATIVE_TICK,
   SLEEP_BETWEEN_ACCOUNT_TXS_SEC,
-  SLEEP_ON_GET_ACCOUNT_ERROR_SEC,
+  SLEEP_ON_GET_ACCOUNT_ERROR_SEC, SLEEP_ON_GET_HEIGHT_ERROR_SEC, SLEEP_ON_GET_HEIGHT_SEC,
   UNATIVE_PER_NATIVE,
 } from "../config.js";
 import { sleep } from "../src/helpers.js";
@@ -50,11 +51,36 @@ const getAccountWrapped = async (
   }
 };
 
+let startMint = false
+
 const processAccount = async (
   /** @type {number} */ accountIdx,
   /** @type {string} */ mnemonic
 ) => {
   const account = await getAccountWrapped(accountIdx, mnemonic);
+
+  while (true) {
+    try {
+      // 获取区块高度
+      const blockNumber = await account.signingClient.getHeight()
+      logger.info(`current block height - ${blockNumber}`);
+      for (let i = 0; i < BLOCK_HEIGHTS.length; i++) {
+        let startHeight = BLOCK_HEIGHTS[i][0]
+        let endHeight = BLOCK_HEIGHTS[i][1]
+        if (blockNumber >= startHeight && blockNumber <= endHeight) {
+          startMint = true
+          break
+        }
+      }
+      await sleep(SLEEP_ON_GET_HEIGHT_SEC);
+    } catch (err) {
+      logger.error(`[${accountIdx}] get block height error - ${error.message}`);
+      await sleep(SLEEP_ON_GET_HEIGHT_ERROR_SEC);
+    }
+    if (startMint) {
+      break
+    }
+  }
 
   logger.warn(
     `[${accountIdx}] ${account.address} started - ${account.nativeAmount} ${NATIVE_TICK} ($${account.usdAmount})`

@@ -75,6 +75,23 @@ export const MINT_COUNT = 0
 
 // 最大 Mint 次数（默认为 10000）
 export const MAX_MINT_COUNT = 10000
+
+// 每轮开始 Mint 的起始-结束区块高度
+export const BLOCK_HEIGHTS = [
+    [55051600,55053100],
+    [55094800,55096300],
+    [55138000,55139500],
+    [55181200,55182700],
+    [55224400,55225900],
+    [55267600,55269100],
+    [55310800,55312300],
+    [55354000,55355500]
+]
+// 获取区块高度间出现错误时的间隔时间（以秒为单位）
+export const SLEEP_ON_GET_HEIGHT_ERROR_SEC = 20;
+
+// 检测区块高度间隔时间（以秒为单位）
+export const SLEEP_ON_GET_HEIGHT_SEC = 2;
 ```
 
 ### Step 5: 安装依赖包
