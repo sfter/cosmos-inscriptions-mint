@@ -90,7 +90,7 @@ yarn install
 - https://chrome.google.com/webstore/detail/dmkamcknogkgcdfhhbddcghachkejeap
 - 通过 keplr 钱包创建好 injective 钱包，最好创建多个钱包 Mint，提升效率
 - 从交易所或者其它钱包向新钱包地址充值一定数量的 $inj
-- 从 keplr 钱包导出助记词和钱包地址
+- 从 keplr 钱包导出助记词和钱包地址，注意导出钱包地址时一定要选 injective
 - 在 cosmos-inscriptions-mint 源代码目录创建一个 input 目录
 - 在 input 目录下创建一个 accounts.txt 文件
 - 在 accounts.txt 文件里输入你的助记词钱包和钱包地址，一定要对应好
