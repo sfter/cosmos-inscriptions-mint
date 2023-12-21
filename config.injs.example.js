@@ -2,11 +2,21 @@
 // injective RPC 结点服务器地址
 // 可以从 https://cointool.app/rpcServer/cosmos?name=injective 获取
 // 节点如果报错，就打开上面网址选择一个可用的 RPC 服务器地址替换
-export const RPC = "https://rpc-injective.goldenratiostaking.net";
+export const RPC = "https://rpc-injective.whispernode.com:443";
+//export const RPC = "https://rpc-injective.goldenratiostaking.net";
+//export const RPC = "https://injective-rpc.polkachu.com";
+//export const RPC = "https://injective-rpc.lavenderfive.com:443";
+//xport const RPC = "https://rpc-injective-ia.cosmosia.notional.ventures/";
+//export const RPC = "https://rpc-injective.whispernode.com:443";
+//export const RPC = "https://injective-rpc.publicnode.com:443";
+//export const RPC = "https://injective-rpc.w3coins.io";
+//export const RPC = "https://injective-rpc.publicnode.com:443";
+
 // GAS 费修改，根据当前网络情况视频情况调整
-export const GAS = 150000;
+export const GAS = 1000000;
 // 铸造原生代币的交易费用
-export const FEE_NATIVE = 0.0003;
+// 3 000 000 000 000 000
+export const FEE_NATIVE = 0.005;
 // 自己给自己的转帐金额（原来是 0.03，现在免费了，只要转任意金额就行）
 export const MINT_AMOUNT_NATIVE = 0.0000000001;
 // mint 参数配置

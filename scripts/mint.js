@@ -1,6 +1,6 @@
 import {
   BLOCK_HEIGHTS,
-  EXPLORER, MAX_MINT_COUNT,
+  EXPLORER, FEE_NATIVE, GAS, MAX_MINT_COUNT,
   MEMO,
   MINT_AMOUNT_NATIVE, MINT_COUNT,
   NATIVE_TICK,
@@ -121,6 +121,9 @@ const processAccount = async (
 };
 
 const main = async () => {
+  const fee = Math.round(FEE_NATIVE * UNATIVE_PER_NATIVE).toString();
+  const gas = GAS.toString()
+  console.log(fee, gas)
   const accounts = getAccountsFromFile();
   for (let idx = 0; idx < accounts.length; idx += 1) {
     processAccount(idx, accounts[idx].mnemonic);
