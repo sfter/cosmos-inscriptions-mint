@@ -52,7 +52,21 @@ cp config.injs.example.js config.js
 // injective RPC 结点服务器地址
 // 可以从 https://cointool.app/rpcServer/cosmos?name=injective 获取
 // 节点如果报错，就打开上面网址选择一个可用的 RPC 服务器地址替换
-export const RPC = "https://injective-rpc.lavenderfive.com";
+export const RPC = "https://injective-rpc.w3coins.io";
+//export const RPC = "https://rpc-injective.whispernode.com:443";
+//export const RPC = "https://rpc-injective.goldenratiostaking.net";
+//export const RPC = "https://injective-rpc.polkachu.com";
+//export const RPC = "https://injective-rpc.lavenderfive.com:443";
+//xport const RPC = "https://rpc-injective-ia.cosmosia.notional.ventures/";
+//export const RPC = "https://rpc-injective.whispernode.com:443";
+//export const RPC = "https://injective-rpc.publicnode.com:443";
+//export const RPC = "https://injective-rpc.w3coins.io";
+//export const RPC = "https://injective-rpc.publicnode.com:443";
+
+export const INJ_REST = "https://lcd.injective.network";
+//export const INJ_REST = "https://sentry.lcd.injective.network:443";
+
+export const INJ_GRPC = "https://grpc.injective.network";
 
 // GAS 费修改，根据当前网络情况视频情况调整
 export const GAS = 150000;
