@@ -1,5 +1,5 @@
 import {
-  EXPLORER,
+  EXPLORER, MAX_MINT_COUNT,
   MEMO,
   MINT_AMOUNT_NATIVE, MINT_COUNT,
   NATIVE_TICK,
@@ -62,7 +62,7 @@ const processAccount = async (
 
   let mintCount = MINT_COUNT
   if (mintCount <= 0) {
-    if (MAX_MINT_COUNT <= 0 ) {
+    if (MAX_MINT_COUNT <= 0) {
       mintCount = 10000
     } else {
       mintCount = MAX_MINT_COUNT
