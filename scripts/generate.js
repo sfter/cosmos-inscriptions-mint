@@ -3,16 +3,14 @@ import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { fileNameNowPrefix, writeFile } from "../src/helpers.js";
 import { logger } from "../src/logger.js";
 import { initializeFilesAndFolders } from "../src/initializeFilesAndFolders.js";
-import { ADDRESS_PREFIX } from "../config.js";
+import { ADDRESS_PREFIX, GENERATE_ACCOUNTS_COUNT } from "../config.js";
 import { getAccount } from "../src/getAccount.js";
 
 const { generate } = DirectSecp256k1HdWallet;
 
 const main = async () => {
-    const length = parseInt(process.argv[2]) || 10;
-
     const accounts = await Promise.all(
-        Array.from({ length }).map(async () => {
+        Array.from({ length: GENERATE_ACCOUNTS_COUNT }).map(async () => {
             const signer = await generate(12, { prefix: ADDRESS_PREFIX });
 
             const mnemonic = signer.mnemonic;
