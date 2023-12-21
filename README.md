@@ -1,4 +1,4 @@
-# injs 铭文自动化 Mint 脚本
+# $injs 铭文自动化 Mint 脚本
 
 > 本脚本是参考 [alfar0x](https://github.com/alfar0x/cosmos-inscriptions) 修改而来，根据 $injs 新版规则进行适当的调整并做了一些简单的修改和优化。
 
