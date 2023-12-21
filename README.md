@@ -74,7 +74,25 @@ or
 yarn install
 ```
 
-### Step 6: 运行 Mint 脚本程序
+### Step 6: 准备好 injective 钱包
+- 先安装好 keplr 钱包，从如下地址安装 injective 钱包扩展插件
+- https://chrome.google.com/webstore/detail/dmkamcknogkgcdfhhbddcghachkejeap
+- 通过 keplr 钱包创建好 injective 钱包，最好创建多个钱包 Mint，提升效率
+- 从交易所或者其它钱包向新钱包地址充值一定数量的 $inj
+- 从 keplr 钱包导出助记词和钱包地址
+- 在 cosmos-inscriptions-mint 源代码目录创建一个 input 目录
+- 在 input 目录下创建一个 accounts.txt 文件
+- 在 accounts.txt 文件里输入你的助记词钱包和钱包地址，一定要对应好
+- accounts.txt 文件内容格式如下，助记词,钱包地址
+```
+steak young choice camera between typical tackle draft chat orient domain kitten,inj1nefwcgld34r3p4r5ztc67smfjfp8qqrfk44ecf
+steak young choice camera between typical tackle draft chat orient domain kitten,inj1nefwcgld34r3p4r5ztc67smfjfp8qqrfk44ecf
+steak young choice camera between typical tackle draft chat orient domain kitten,inj1nefwcgld34r3p4r5ztc67smfjfp8qqrfk44ecf
+steak young choice camera between typical tackle draft chat orient domain kitten,inj1nefwcgld34r3p4r5ztc67smfjfp8qqrfk44ecf
+steak young choice camera between typical tackle draft chat orient domain kitten,inj1nefwcgld34r3p4r5ztc67smfjfp8qqrfk44ecf
+```
+
+### Step 7: 运行 Mint 脚本程序
 ```shell
 node scripts/mint.js
 ```
